@@ -1,13 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import PostCard from "../components/PostCard";
+import API from "../utils/axios";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/posts")
+    API.get("/posts")
       .then((res) => {
         setPosts(res.data);
         setLoading(false);

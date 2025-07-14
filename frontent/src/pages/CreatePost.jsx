@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import API from "../utils/axios";
 
 function CreatePost() {
   const [input, setInput] = useState({ title: "", content: "", category: "" });
@@ -20,7 +21,7 @@ function CreatePost() {
     if (!user) return toast.error("Please login first!");
 
     try {
-      const res = await axios.post("http://localhost:4000/api/posts", input, {
+      const res = await API.post("/posts", input, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

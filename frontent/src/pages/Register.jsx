@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import API from "../utils/axios";
 
 function Register() {
   const [input, setInput] = useState({ name: "", email: "", password: "" });
@@ -16,10 +17,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:4000/api/auth/register",
-        input
-      );
+      const res = await API.post("/auth/register", input);
       login(res.data);
       toast.success("Registered Successfully!");
       navigate("/");

@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import API from "../utils/axios";
 
 function Login() {
   const [input, setInput] = useState({ email: "", password: "" });
@@ -16,10 +17,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:4000/api/auth/login",
-        input
-      );
+      const res = await API.post("/auth/login", input);
       toast.success("Login Successful!");
       setTimeout(() => {
         login(res.data);

@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
+import API from "../utils/axios";
 
 const EditPost = () => {
   const [input, setInput] = useState({
@@ -23,7 +24,7 @@ const EditPost = () => {
     e.preventDefault();
     setEnable(true);
     try {
-      axios.put(`http://localhost:4000/api/posts/${id}`, input, {
+      API.put(`/posts/${id}`, input, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -37,8 +38,7 @@ const EditPost = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/posts/${id}`)
+    API.get(`/posts/${id}`)
       .then((res) => {
         setInput(res.data);
         setLoading(false);

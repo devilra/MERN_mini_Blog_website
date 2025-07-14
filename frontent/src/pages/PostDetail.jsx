@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
+import API from "../utils/axios";
 
 const PostDetail = () => {
   const [post, setPost] = useState(null);
@@ -13,15 +14,14 @@ const PostDetail = () => {
   console.log(post);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/posts/${id}`)
+    API.get(`/posts/${id}`)
       .then((res) => setPost(res.data))
       .catch((err) => toast.error(err.message));
   }, [id]);
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4000/api/posts/${id}`, {
+      await API.delete(`/posts/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       toast.success("Post Deleted Successfull");
